@@ -1,0 +1,66 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+    cinema list
+{% endblock %}
+
+
+{% block content %}
+    <section class="section details">
+        <!-- details background -->
+        <div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
+        <!-- end details background -->
+
+        <!-- details content -->
+        {% for cinema in cinemas %}
+            <div class="container" id="cinema_content">
+                <div class="row">
+                    <!-- title -->
+                    <div class="col-md-12">
+                        <h1 class="details__title">{{ cinema.name }}</h1>
+                    </div>
+                    <!-- end title -->
+
+                    <!-- content -->
+                    <div class="col-md-12">
+                        <div class="card card--details">
+                            <div class="row">
+                                <!-- card cover -->
+                                <div class="col-md-12">
+                                    <div class="card__cover">
+                                        <img src="{{ cinema.image.url }}" alt="">
+                                    </div>
+                                </div>
+                                <!-- end card cover -->
+
+                                <!-- card content -->
+                                <div class="col-md-12">
+                                    <div class="card__content">
+
+
+                                        <ul class="card__meta">
+                                            <li><span>City:</span> <a href="">{{ cinema.city }}</a>
+                                            <li><span>Capacity:</span> {{ cinema.capacity }}</li>
+                                            <li><span>Phone:</span> {{ cinema.phone }}</li>
+
+                                        </ul>
+
+                                        <div class="card__description card__description--details">
+                                          {{ cinema.address }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card content -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- end details content -->
+    </section>
+    <!-- end details -->
+
+{% endblock %}

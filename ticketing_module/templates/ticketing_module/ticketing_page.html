@@ -1,0 +1,122 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% block title %}
+    ticketing
+{% endblock %}
+{% block content %}
+    <!-- catalog -->
+    <div class="catalog" id="showtime">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 offset-4">
+                <form action="" method="get" >
+
+                    {{ show_time_search_form.as_p }}
+
+                    <button type="submit" class="btn btn-success w-25 mb-3">
+                        filter
+                    </button>
+                </form>
+                </div>
+            </div>
+            <div class="row">
+                <!-- card -->
+                {% for show_time in show_times %}
+                    <div class="col-6 col-sm-12 col-lg-6">
+                        <div class="card card--list">
+                            <div class="row">
+                                <div class="col-12 col-sm-3">
+                                    <div class="card__cover">
+                                        {% thumbnail show_time.movie.image "143x290" quality=90 crop='center' as im %}
+                                            <img src="{{ im.url }}" alt="">
+                                        {% endthumbnail %}
+                                        <a href="" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6">
+                                    <a href="{% url 'ticketing_detail' pk=show_time.id %}" class=" {% if show_time.status != show_time.SALE_OPEN %}
+                                     btn btn-outline-dark disabled
+                                     {% else %}
+                                     btn btn-outline-light
+                                    {% endif %}">
+                                        <div class="card__content">
+                                            {#                                        <h3 class="card__title"><a href="">{{ show_time.movie.name }}</a></h3>#}
+                                            <ul id="ticketing_ul">
+                                                <li class="card__title">
+                                                    <span>Movie:</span> {{ show_time.movie.name |truncatewords:2 }}
+                                                </li>
+                                                <li class="card__title"><span>Cinema:</span> {{ show_time.cinema.name }}
+                                                </li>
+                                                <li class="card__title">
+                                                    <span>Start time:</span> {{ show_time.start_time | time }}</li>
+                                                <li class="card__title">
+                                                    <span>Start date:</span> {{ show_time.start_time | date }}</li>
+
+
+                                                <li id="box_status" class=" btn
+                                                {% if show_time.status == show_time.SALE_OPEN %}
+                                                    btn-success
+
+                                                    {% elif show_time.status == show_time.SALE_NOT_STARTED %}
+                                                    btn-warning
+                                                    {% elif show_time.status == show_time.SHOW_CANCELED %}
+                                                    btn-danger
+                                                    {% else %}
+                                                    btn-secondary
+                                                {% endif %}
+                                                            "
+                                                >
+                                                    <span>
+                                                    {% if show_time.status == show_time.SALE_OPEN %}
+                                                        {{ show_time.get_price }}
+                                                    {% else %}
+                                                        {{ show_time.get_status_display }}
+                                                    {% endif %}
+                                                    </span>
+                                                </li>
+
+
+                                                {% if show_time.status == show_time.SALE_OPEN and show_time.free_seats < 10 %}
+                                                    <li class="btn btn-danger" id="box_status">
+                                                    <span>
+                                                    {{ show_time.free_seats }} seats left
+                                                    </span>
+                                                    </li>
+                                                {% endif %}
+
+                                            </ul>
+
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-12 col-sm-3">
+                                    <div class="card__cover">
+                                        {% thumbnail show_time.cinema.image "143x290" quality=90 crop='center' as im %}
+                                            <img src="{{ im.url }}" alt="">
+                                        {% endthumbnail %}
+                                        <a href="" class="card__play">
+                                            <i class="icon ion-ios-film"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- end card -->
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- end catalog -->
+
+{% endblock %}

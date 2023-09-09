@@ -1,0 +1,83 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% block title %}
+    ticketing detail
+{% endblock %}
+
+
+{% block content %}
+    <section class="section details">
+        <!-- details background -->
+        <div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
+        <!-- end details background -->
+
+        <!-- details content -->
+
+        <div class="container" id="cinema_content">
+            <div class="row">
+                <!-- title -->
+                {#                    <div class="col-md-12">#}
+                {#                        <h1 class="details__title">{{ cinema.name }}</h1>#}
+                {#                    </div>#}
+                <!-- end title -->
+
+                <!-- content -->
+                <div class="col-md-12">
+                    <div class="card card--details">
+                        <div class="row">
+                            <!-- card cover -->
+                            <div class="col-md-6">
+                                <div class="card__cover">
+                                    {% thumbnail show_time.movie.image "300x300" quality=90 crop='center' as im %}
+                                        <img src="{{ im.url }}" alt="">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card__cover">
+                                    {% thumbnail show_time.cinema.image "300x300" quality=90 crop='center' as im %}
+                                        <img src="{{ im.url }}" alt="">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            <!-- end card cover -->
+
+                            <!-- card content -->
+                            <div class="col-md-12">
+                                <div class="card__content">
+
+
+                                    <ul class="card__meta">
+                                        <li><span>Movie name:</span> {{ show_time.movie.name }}</li>
+                                        <li><span>Cinema name:</span>{{ show_time.cinema.name }}</li>
+                                        <li><span>Start time:</span> {{ show_time.start_time | time }}</li>
+                                        <li><span>Start date:</span> {{ show_time.start_time | date }}</li>
+                                        <li><span>Price:</span> <a href=""> {{ show_time.price }} $ </a>
+                                        <li><span>Free seat:</span> <a href="">{{ show_time.free_seats }}</a>
+
+                                    </ul>
+
+                                    <div class="card__description card__description--details">
+                                        {{ show_time.cinema.address }}
+                                    </div>
+
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success"> submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- end card content -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- end details content -->
+    </section>
+    <!-- end details -->
+
+{% endblock %}

@@ -1,0 +1,42 @@
+<ul class="comments__list" id="like_and_dislike">
+
+    {% for comment in comments %}
+        <li class="comments__item">
+            <div class="comments__autor">
+                <img class="comments__avatar"
+                     src="{{ comment.user.image.url }}" alt="">
+                <span class="comments__name">{{ comment.user.username }}</span>
+                <span class="comments__time">{{ comment.create_date | date }}, {{ comment.create_date |time }}</span>
+            </div>
+            <p class="comments__text"> {{ comment.text }}</p>
+            <div class="comments__actions">
+                <div class="comments__rate" >
+
+
+                    <button type="button"
+                            onclick="like({{ comment.id }},{{ movie.id }})"
+                    ><i
+                            class="icon ion-md-thumbs-up"></i>
+
+                        {{ comment.num_of_like }}
+                    </button>
+
+
+                    <button type="button"
+                             onclick="dislike({{ comment.id }},{{ movie.id }})">
+                        {{ comment.num_of_dislike }}
+                        <i
+                                class="icon ion-md-thumbs-down"></i>
+                    </button>
+
+
+                </div>
+
+
+            </div>
+        </li>
+    {% endfor %}
+
+
+</ul>
+

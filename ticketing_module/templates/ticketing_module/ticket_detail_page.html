@@ -1,0 +1,48 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% block header_references %}
+    <link rel="stylesheet" href="/static/css/ticket_detail.css">
+{% endblock %}
+{% block title %}
+    ticket detail
+{% endblock %}
+{% block content %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+    <div class="ticket ">
+        <div class="left">
+            <div class="image">
+                {% thumbnail detail.showtime.cinema.image "250x400" quality=90 crop='center' as im %}
+                    <img src="{{ im.url }}" alt="">
+                {% endthumbnail %}
+            </div>
+            <div class="ticket-info">
+                <p class="date">
+                    {{ detail.showtime.start_time }}
+                </p>
+                <div class="show-name">
+                    <h1>{{ detail.showtime.movie.name }}</h1>
+                    <h2>{{ detail.showtime.cinema.name }}</h2>
+                </div>
+                <div class="time">
+                    <p>User <span>:</span> {{ detail.user.username }}</p>
+                    <p> Order time <i class="fa fa-clock"></i> <span>:</span>{{ detail.order_time }}</p>
+                </div>
+                <p class="location"><span></span>
+                    <span>  <i class="fa fa-chair"></i>  Seat count : </span><span> {{ detail.seat_count }}</span>
+                </p>
+            </div>
+        </div>
+        <div class="right">
+
+            <div class="right-info-container">
+
+                <div class="barcode">
+                    <img src="https://external-preview.redd.it/cg8k976AV52mDvDb5jDVJABPrSZ3tpi1aXhPjgcDTbw.png?auto=webp&s=1c205ba303c1fa0370b813ea83b9e1bddb7215eb"
+                         alt="QR code">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load render_partial %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+
+
+    {% include 'shared/header_references.html' %}
+
+
+    {% block header_references %}
+    {% endblock %}
+
+
+
+	<title> {% block title %}
+	        no title
+	{% endblock %}</title>
+   
+
+</head>
+<body class="body">
+
+	<!-- header -->
+    {% render_partial 'home_module.views.site_header_component' %}
+	<!-- end header -->
+    {% block content %}
+    
+    {% endblock %}
+
+	<!-- footer -->
+	{% render_partial 'home_module.views.site_footer_component' %}
+	<!-- end footer -->
+
+
+
+    {% include 'shared/footer_references.html' %}
+
+
+
+    {% block footer_references %}
+    {% endblock %}
+	<!-- JS -->
+
+
+</body>
+
+</html>

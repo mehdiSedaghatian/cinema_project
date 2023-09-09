@@ -1,0 +1,429 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% block title %}
+    movie list
+{% endblock %}
+{% block content %}
+    <section class="section section--first section--bg" data-bg="/static/img/section/section.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__wrap">
+                        <!-- section title -->
+                        <h2 class="section__title">movies</h2>
+                        <!-- end section title -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end page title -->
+
+    <!-- filter -->
+    <div class="filter">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="filter__content"id="movie_form">
+
+                        <div class="filter__items" >
+
+
+                            <!-- filter item -->
+                            <div class="filter__item" id="filter__genre">
+                                <span class="filter__item-label">GENRE:</span>
+
+                                <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre"
+                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <input type="button" value="select your genre" id="genre_input">
+                                    <span></span>
+                                </div>
+
+                                <ul class="filter__item-menu dropdown-menu scrollbar-dropdown"
+                                    aria-labelledby="filter-genre">
+                                    <a href="{% url 'movie_list' %}">
+                                        <li>All Genre</li>
+                                    </a>
+                                    {% for genre in genres %}
+                                        <a href="{% url 'movie_genre' genre=genre.name %}">
+                                            <li name="genre">{{ genre.name }}</li>
+                                        </a>
+                                    {% endfor %}
+
+
+                                    {#                                    <li>Action/Adventure</li>#}
+                                    {#                                    <li>Animals</li>#}
+                                    {#                                    <li>Animation</li>#}
+                                    {#                                    <li>Biography</li>#}
+                                    {#                                    <li>Comedy</li>#}
+                                    {#                                    <li>Cooking</li>#}
+                                    {#                                    <li>Dance</li>#}
+                                    {#                                    <li>Documentary</li>#}
+                                    {#                                    <li>Drama</li>#}
+                                    {#                                    <li>Education</li>#}
+                                    {#                                    <li>Entertainment</li>#}
+                                    {#                                    <li>Family</li>#}
+                                    {#                                    <li>Fantasy</li>#}
+                                    {#                                    <li>History</li>#}
+                                    {#                                    <li>Horror</li>#}
+                                    {#                                    <li>Independent</li>#}
+                                    {#                                    <li>International</li>#}
+                                    {#                                    <li>Kids</li>#}
+                                    {#                                    <li>Kids & Family</li>#}
+                                    {#                                    <li>Medical</li>#}
+                                    {#                                    <li>Military/War</li>#}
+                                    {#                                    <li>Music</li>#}
+                                    {#                                    <li>Musical</li>#}
+                                    {#                                    <li>Mystery/Crime</li>#}
+                                    {#                                    <li>Nature</li>#}
+                                    {#                                    <li>Paranormal</li>#}
+                                    {#                                    <li>Politics</li>#}
+                                    {#                                    <li>Racing</li>#}
+                                    {#                                    <li>Romance</li>#}
+                                    {#                                    <li>Sci-Fi/Horror</li>#}
+                                    {#                                    <li>Science</li>#}
+                                    {#                                    <li>Science Fiction</li>#}
+                                    {#                                    <li>Science/Nature</li>#}
+                                    {#                                    <li>Spanish</li>#}
+                                    {#                                    <li>Travel</li>#}
+                                    {#                                    <li>Western</li>#}
+                                </ul>
+                            </div>
+                            <!-- end filter item -->
+
+
+
+                            <!-- filter item -->
+
+                            {#                            <div class="price-range"><!--price-range-->#}
+                            {#                                <h2>imdb</h2>#}
+                            {#                                <div class="well">#}
+{#                                                                <input type="text" class="span2" value="{{ imdb_start }},{{ imdb_end }}"#}
+                            {#                                           data-slider-min="0" data-slider-max="10"#}
+                            {#                                           data-slider-step="1" data-slider-value="[0,10]" id="sl2">#}
+                            {#                                    <br/>#}
+                            {#                                    <b class="pull-left">0 </b>#}
+                            {#                                    <b class="pull-right">10 </b>#}
+                            {##}
+                            {#                                </div>#}
+                            {#                            </div><!--/price-range-->#}
+                            {#                            <form action="" method="get" id="filter_form">#}
+                            {#                                <input type="hidden" name="imdb_start" value="{{ imdb_start }}" id="imdb_start">#}
+                            {#                                <input type="hidden" name="imdb_end" value="{{ imdb_end }}" id="imdb_end">#}
+                            {#                            </form>#}
+
+                            {#                                <div class="filter__item" id="filter__rate"#}
+                            {#                                >#}
+                            {#                                    <span class="filter__item-label">IMBd:</span>#}
+                            {#                                        <input type="hidden" value="{{ imdb_start }},{{ imdb_end }}" id="sl2">#}
+                            {##}
+                            {##}
+                            {#                                    <div class="filter__item-btn dropdown-toggle" role="button" id="filter-rate"#}
+                            {#                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                            {#                                        <div class="filter__range">#}
+                            {#                                            <div id="filter__imbd-start">#}
+                            {#                                                <input type="hidden" name="imdb_start" value="{{ imdb_start }}" id="imdb_start">#}
+                            {#                                            </div>#}
+                            {#                                            <div id="filter__imbd-end">#}
+                            {#                                                <input type="hidden" name="imdb_end" value="{{ imdb_end }}"id="imdb_end">#}
+                            {#                                            </div>#}
+                            {#                                        </div>#}
+                            {#                                        <span></span>#}
+                            {#                                    </div>#}
+                            {##}
+                            {##}
+                            {#                                    <div class="filter__item-menu filter__item-menu--range dropdown-menu"#}
+                            {#                                         aria-labelledby="filter-rate">#}
+                            {#                                        <div id="filter__imbd"></div>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            <!-- end filter item -->
+
+                            <!-- filter item -->
+                            {#                            <div class="filter__item" id="filter__year">#}
+                            {#                                <span class="filter__item-label">RELEASE YEAR:</span>#}
+                            {##}
+                            {#                                <div class="filter__item-btn dropdown-toggle" role="button" id="filter-year"#}
+                            {#                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                            {#                                    <div class="filter__range">#}
+                            {#                                        <div id="filter__years-start"></div>#}
+                            {#                                        <div id="filter__years-end"></div>#}
+                            {#                                    </div>#}
+                            {#                                    <span></span>#}
+                            {#                                </div>#}
+                            {##}
+                            {#                                <div class="filter__item-menu filter__item-menu--range dropdown-menu"#}
+                            {#                                     aria-labelledby="filter-year">#}
+                            {#                                    <div id="filter__years"></div>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <!-- end filter item -->
+
+                        </div>
+
+
+                        <div>
+
+                            {% if movie_name_form %}
+                                <form action="" method="get">
+
+
+                                        {{ movie_name_form.movie_name }}
+                                        {{ movie_name_form.errors }}
+{#                                        {{ genre_form }}#}
+{#                                        <br>#}
+{#                                        {{ imdb_form }}#}
+{#                                        {{ year_form }}#}
+
+
+
+                                    <button type="submit" class="btn btn-success border-1 mx-3">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </form>
+
+                            {% endif %}
+                        </div>
+
+
+                        <!-- filter btn -->
+
+                        <!-- end filter btn -->
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end filter -->
+
+    <!-- catalog -->
+    <div class="catalog">
+        <div class="container">
+            <div class="row">
+                <!-- card -->
+                {% if movie_list %}
+                    {% for movie in movie_list %}
+                        <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                            <div class="card">
+                                <div class="card__cover">
+                                    {% thumbnail movie.image "143x212" quality=90 crop='center' as im %}
+                                        <img src="{{ im.url }}" alt="">
+                                    {% endthumbnail %}
+
+                                    {#							<img src="{{ movie.image.url }}" alt="" style="width:143px; height: 212px;">#}
+                                    <a href="#" class="card__play">
+                                        <i class="icon ion-ios-play"></i>
+                                    </a>
+                                </div>
+                                <div class="card__content">
+                                    <h3 class="card__title"><a
+                                            href="{% url 'movie_detail' pk=movie.id %}">{{ movie.name }}</a>
+                                    </h3>
+                                    <span class="card__category">
+
+                                    {% for genre in movie.genre.all %}
+                                        <a href="#">{{ genre.name }}</a>
+                                    {% endfor %}
+
+
+
+
+
+
+
+
+							</span>
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.imdb }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+
+                    <!-- paginator -->
+
+
+
+                    <div class="col-12">
+                        <ul class="paginator">
+                            {% if movie_list.has_previous %}
+                                <li class="paginator__item"><a href="?page={{ movie_list.previous_page_number }}">previous</a>
+                                </li>
+                            {% endif %}
+                            <li class="paginator__item paginator__item--active"><a href="">page {{ movie_list.number }}
+                                of {{ movie_list.paginator.num_pages }}</a></li>
+                            {% if movie_list.has_next %}
+                                <li class="paginator__item"><a href="?page={{ movie_list.next_page_number }}">next</a>
+                                </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+                    <!-- end paginator -->
+
+
+
+                {% else %}
+                    <div class="alert alert-info">the movie is not found</div>
+                {% endif %}
+
+
+                <!-- end card -->
+
+
+            </div>
+        </div>
+    </div>
+    <!-- end catalog -->
+
+    {#    <!-- expected premiere -->#}
+    {#    <section class="section section--bg" data-bg="/static/img/section/section.jpg">#}
+    {#        <div class="container">#}
+    {#            <div class="row">#}
+    {#                <!-- section title -->#}
+    {#                <div class="col-12">#}
+    {#                    <h2 class="section__title">Expected premiere</h2>#}
+    {#                </div>#}
+    {#                <!-- end section title -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Action</a>#}
+    {#								<a href="#">Triler</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover3.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">Benched</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Comedy</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover2.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">Whitney</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Romance</a>#}
+    {#								<a href="#">Drama</a>#}
+    {#								<a href="#">Music</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover6.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">Blindspotting</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Comedy</a>#}
+    {#								<a href="#">Drama</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover4.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Action</a>#}
+    {#								<a href="#">Triler</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- card -->#}
+    {#                <div class="col-6 col-sm-4 col-lg-3 col-xl-2">#}
+    {#                    <div class="card">#}
+    {#                        <div class="card__cover">#}
+    {#                            <img src="/static/img/covers/cover5.jpg" alt="">#}
+    {#                            <a href="#" class="card__play">#}
+    {#                                <i class="icon ion-ios-play"></i>#}
+    {#                            </a>#}
+    {#                        </div>#}
+    {#                        <div class="card__content">#}
+    {#                            <h3 class="card__title"><a href="#">Benched</a></h3>#}
+    {#                            <span class="card__category">#}
+    {#								<a href="#">Comedy</a>#}
+    {#							</span>#}
+    {#                            <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <!-- end card -->#}
+    {##}
+    {#                <!-- section btn -->#}
+    {#                <div class="col-12">#}
+    {#                    <a href="#" class="section__btn">Show more</a>#}
+    {#                </div>#}
+    {#                <!-- end section btn -->#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+    {#    <!-- end expected premiere -->#}
+
+{% endblock %}

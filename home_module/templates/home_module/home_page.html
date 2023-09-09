@@ -1,0 +1,61 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% load static %}
+{% block title %}
+    home page
+{% endblock %}
+{% block content %}
+    <!-- home -->
+    <section class="home home--bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="home__title"><b>NEW ITEMS</b></h1>
+
+                    <button class="home__nav home__nav--prev" type="button">
+                        <i class="icon ion-ios-arrow-round-back"></i>
+                    </button>
+                    <button class="home__nav home__nav--next" type="button">
+                        <i class="icon ion-ios-arrow-round-forward"></i>
+                    </button>
+                </div>
+
+                <div class="col-12">
+                    <div class="owl-carousel home__carousel">
+                        {% for movie in movies %}
+                            <div class="item">
+                                <!-- card -->
+                                <div class="card card--big">
+                                    <div class="card__cover">
+                                        {% thumbnail movie.image "143x212" quality=90 crop='center' as im %}
+                                            <img src="{{ im.url }}" alt="">
+                                        {% endthumbnail %}
+                                        <a href="#" class="card__play">
+                                            <i class="icon ion-ios-play"></i>
+                                        </a>
+                                    </div>
+                                    <div class="card__content">
+                                        <h3 class="card__title"><a href="#">{{ movie.name }}</a></h3>
+                                        <span class="card__category">
+									  {% for genre in movie.genre.all %}
+                                          <a href="#">{{ genre.name }}</a>
+                                      {% endfor %}
+									</span>
+                                        <span class="card__rate"><i class="icon ion-ios-star"></i>{{ movie.imdb }}</span>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+
+{% endblock %}
+

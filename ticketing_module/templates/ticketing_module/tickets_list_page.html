@@ -1,0 +1,68 @@
+{% extends 'shared/_layout.html' %}
+{% block header_references %}
+    <link rel="stylesheet" href="/static/css/tickets_list.css">
+{% endblock %}
+{% block title %}
+    ticket list
+{% endblock %}
+{% block content %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <div class="container">
+        <h1 class="upcomming">upcomming gigs</h1>
+
+        {% if tickets %}
+
+           {% for ticket in tickets %}
+             <div class="item">
+                <div class="item-right">
+
+{#                    <h2 class="num">{{ ticket.showtime.start_time | date }}</h2>#}
+                    <p class="day">{{ ticket.showtime.start_time |date }}</p>
+                    <span class="up-border"></span>
+                    <span class="down-border"></span>
+                </div> <!-- end item-right -->
+
+                <div class="item-left">
+                    <p class="event">  {{ ticket.showtime.movie.name }}</p>
+
+
+                    <div class="sce">
+                        <div class="icon">
+                            <i class="fa fa-table"></i>
+                        </div>
+                        <p>{{ ticket.showtime.start_time }}</p>
+                    </div>
+                    <div class="fix"></div>
+                    <div class="loc">
+                        <div class="icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <p>{{ ticket.showtime.cinema.city }},  {{ ticket.showtime.cinema.name }}</p>
+                    </div>
+                    <div class="fix"></div>
+
+                    <div class="mt-5">
+                        <p>
+                            SEAT COUNT   <span class="m-4" style="font-size: 25px; " >{{ ticket.seat_count }}</span>
+                        </p>
+                    </div>
+                    <a href="{% url 'ticket_detail' pk=ticket.id %}" class="tickets">Detail</a>
+                </div> <!-- end item-right -->
+            </div>
+           {% endfor %}
+
+
+        {% else %}
+            <div class="col-md-12">
+                <div class="alert alert-danger mt-5 d-flex align-items-center justify-content-center " id="no_ticket_alert">
+                    you have not bought any tickets
+                </div>
+            </div>
+        {% endif %}
+
+
+    </div>
+{% endblock %}

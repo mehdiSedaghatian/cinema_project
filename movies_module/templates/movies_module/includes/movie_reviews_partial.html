@@ -1,0 +1,47 @@
+<div class="reviews" id="movie_reviews">
+    <ul class="reviews__list">
+        {% if reviews %}
+            {% for review in reviews %}
+                <li class="reviews__item">
+                    <div class="reviews__autor">
+                        <img class="reviews__avatar"
+                             src="{{ review.user.image.url }}" alt="">
+                        <span class="reviews__name">{{ review.title }}</span>
+                        <span class="reviews__time">{{ review.create_date | date }}, {{ review.create_date|time }} by {{ review.user.username }}</span>
+
+                        <span class="reviews__rating"><i
+                                class="icon ion-ios-star"></i>{{ review.rate }}</span>
+                    </div>
+                    <p class="reviews__text"> {{ review.text }}</p>
+                </li>
+            {% endfor %}
+
+        {% else %}
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    There are not any review
+                </div>
+            </div>
+        {% endif %}
+
+
+    </ul>
+
+    <form action="#" class="form">
+        <input type="text" class="form__input" placeholder="Title" id="review_title">
+        <textarea class="form__textarea" placeholder="Review"
+                  id="review_text"></textarea>
+        <div class="form__slider">
+            {#                                                <div class="form__slider-rating" id="slider__rating"></div>#}
+            {#                                                <div class="form__slider-value" id="form__slider-value"></div>#}
+
+            <input id="review_input" type="range" min="0" max="10" step="0.1"/>
+            <p>
+                <output id="review_value"></output>
+            </p>
+
+
+        </div>
+        <button type="button" class="form__btn" onclick="reviews({{ movie.id }})">Send</button>
+    </form>
+</div>
